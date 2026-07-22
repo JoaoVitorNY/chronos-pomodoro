@@ -2,14 +2,14 @@ import './styles/theme.css'
 import './styles/global.css'
 
 import { Home } from './pages/Home'
-import { AboutPomodoro } from './pages/AboutPomodoro'
-import { NotFound } from './pages/NotFound'
+import { TaskContextProvider } from './contexts/TaskContext/TaskContextProvider'
 
 export function App() {
-
-    return <>
-        <AboutPomodoro />
-    </>    
+    return (    
+        <TaskContextProvider>
+            <Home />
+        </TaskContextProvider>
+    )   
 }   
 
 
