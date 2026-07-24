@@ -60,10 +60,15 @@ export function MainForm() {
 	return (
 		<form onSubmit={handleCreateNewTask} className='form' action="">
 			<div className="formRow">
-				<DefaultInput labelText="task" type="text" id="meuInput" placeholder="Digite algo"
+				<DefaultInput 
+					labelText="task" 
+					type="text" 
+					id="meuInput" 
+					placeholder="Digite algo"
 					// value={taskName}
 					// onChange={e => setTaskName(e.target.value)}
 					ref={taskNameInput}
+					disabled={!!state.activeTask}
 				/>                
 			</div>
 			
