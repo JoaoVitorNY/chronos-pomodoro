@@ -57,6 +57,17 @@ export function MainForm() {
 		})
 	}
 
+	function handleInterruptTask() {
+		setState(prevState => {
+			return {
+				...prevState,
+				activeTask: null,
+				secondsRemaining: 0,
+				formattedSecondsRemaining: '00:00'
+			}
+		})
+	}
+
 	return (
 		<form onSubmit={handleCreateNewTask} className='form' action="">
 			<div className="formRow">
@@ -83,18 +94,23 @@ export function MainForm() {
 			)}
 			
 			<div className="formRow">
-				{!state.activeTask ? (
+				{!state.activeTask && (
 					<DefaultButton 
 						type='submit' 
-						arial-label='Iniciar nova tarefa' 
+						aria-label='Iniciar nova tarefa' 
 						title='Iniciar nova tarefa' 
+						key='botao_submit'
 						icon={<PlayCircleIcon/>} />   
-				) : (
+				)}  
+				
+				{!!state.activeTask && (
 					<DefaultButton 
-						type='submit' 
-						arial-label='Interromper tarefa' 
+						type='button' 
+						aria-label='Interromper tarefa' 
 						title='Interromper tarefa' 
+						key='botao_interrupt'
 						color='red'
+						onClick={handleInterruptTask}
 						icon={<StopCircleIcon/>} />  
 				)}               
 			</div>
