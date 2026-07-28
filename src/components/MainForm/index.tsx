@@ -22,15 +22,15 @@ export function MainForm() {
 	const nextCycleType = getNextCycleType(nextCycle)	 
 
 	function handleCreateNewTask(event: React.SubmitEvent<HTMLFormElement>) {
-		event.preventDefault()
+		event.preventDefault();
 
-		if(taskNameInput.current === null) return
+		if (taskNameInput.current === null) return;
 
-		const taskName = taskNameInput.current.value.trim()
+		const taskName = taskNameInput.current.value.trim();
 
-		if(!taskName) {
-			alert('Por favor, digite o nome da tarefa')
-			return
+		if (!taskName) {
+			alert('Digite o nome da tarefa');
+			return;
 		}
 
 		const newTask: TaskModel = {
@@ -40,10 +40,10 @@ export function MainForm() {
 			completeDate: null,
 			interruptDate: null,
 			duration: state.config[nextCycleType],
-			type: nextCycleType
-		}
+			type: nextCycleType,
+		};
 
-		dispatch({type: TaskActionTypes.START_TASK, payload: newTask})
+		dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
 	}
 
 	function handleInterruptTask() {
@@ -75,26 +75,28 @@ export function MainForm() {
 				</div>
 			)}
 			
-			<div className="formRow">
+			<div className='formRow'>
 				{!state.activeTask && (
-					<DefaultButton 
-						type='submit' 
-						aria-label='Iniciar nova tarefa' 
-						title='Iniciar nova tarefa' 
-						key='botao_submit'
-						icon={<PlayCircleIcon/>} />   
-				)}  
-				
+				<DefaultButton
+					aria-label='Iniciar nova tarefa'
+					title='Iniciar nova tarefa'
+					type='submit'
+					icon={<PlayCircleIcon />}
+					key='botao_submit'
+				/>
+				)}
+
 				{!!state.activeTask && (
-					<DefaultButton 
-						type='button' 
-						aria-label='Interromper tarefa' 
-						title='Interromper tarefa' 
-						key='botao_interrupt'
-						color='red'
-						onClick={handleInterruptTask}
-						icon={<StopCircleIcon/>} />  
-				)}               
+				<DefaultButton
+					aria-label='Interromper tarefa atual'
+					title='Interromper tarefa atual'
+					type='button'
+					color='red'
+					icon={<StopCircleIcon />}
+					onClick={handleInterruptTask}
+					key='botao_button'
+				/>
+				)}
 			</div>
 		</form>
 	)

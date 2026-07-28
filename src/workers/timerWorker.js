@@ -1,4 +1,4 @@
-let isRunning = false
+let isRunning = false;
 
 self.onmessage = function (event) {
     if(isRunning) return
@@ -17,6 +17,8 @@ self.onmessage = function (event) {
         
         const now = Date.now()
         countDownSeconds = Math.floor((endDate - now) / 1000)
+
+        setTimeout(tick, 1000)
     }
 
     tick()
