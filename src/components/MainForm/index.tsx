@@ -23,7 +23,7 @@ export function MainForm() {
 
 	function handleCreateNewTask(event: React.SubmitEvent<HTMLFormElement>) {
 		event.preventDefault();
-
+		
 		if (taskNameInput.current === null) return;
 
 		const taskName = taskNameInput.current.value.trim();

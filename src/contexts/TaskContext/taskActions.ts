@@ -19,8 +19,8 @@ export type TaskActionWithPayload = {
     type: TaskActionTypes.START_TASK, 
     payload: TaskModel
 } | {
-    type: TaskActionTypes.COUNT_DOWN;
-    payload: { secondsRemaining: number };
+    type: TaskActionTypes.COUNT_DOWN,
+    payload: { secondsRemaining: number }
 }
 
 export type TaskActionWithoutPayload = {

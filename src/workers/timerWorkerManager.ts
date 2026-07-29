@@ -11,7 +11,7 @@ export class TimerWorkerManager {
 
     static getInstance() {
         if (!instance) {
-        instance = new TimerWorkerManager();
+            instance = new TimerWorkerManager();
         }
 
         return instance;
