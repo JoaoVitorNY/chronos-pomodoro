@@ -14,6 +14,7 @@ import { showMessage } from "../../adapters/showMessage"
 
 export function MainForm() {
 	const { state, dispatch } = useTaskContext() 
+	const lastTaskName = state.tasks[state.tasks.length - 1]?.name || ''
 
 	// useState para quando quiser o valor em tempo real, pois faz a renderização do componente a cada alteração do valor
 	// const { taskName, setTaskName } = useState('') 
@@ -69,6 +70,7 @@ export function MainForm() {
 					// onChange={e => setTaskName(e.target.value)}
 					ref={taskNameInput}
 					disabled={!!state.activeTask}
+					defaultValue={lastTaskName}
 				/>                
 			</div>
 			
