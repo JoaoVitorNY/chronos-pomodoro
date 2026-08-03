@@ -3,6 +3,7 @@ import { NotFound } from "../../pages/NotFound";
 import { AboutPomodoro } from "../../pages/AboutPomodoro";
 import { Home } from "../../pages/Home";    
 import { useEffect } from "react";
+import { History } from "../../pages/History";
 
 // Componente que não retorna nada, mas responsável por rolar página para o topo e utilizando hooks
 function ScrollToTop() {
@@ -20,6 +21,7 @@ export function MainRouter() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home />} />
+                <Route path='/history/' element={<History />} />
                 <Route path='/about-pomodoro/' element={<AboutPomodoro />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
