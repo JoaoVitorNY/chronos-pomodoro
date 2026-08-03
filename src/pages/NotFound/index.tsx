@@ -1,8 +1,8 @@
-import { Link } from "react-router";
 import { Container } from "../../components/Container";
 import { GenericHtml } from "../../components/GenericHtml";
 import { Heading } from "../../components/Heading";
 import { MainTemplate } from "../../templates/MainTemplate";
+import { RouterLink } from "../../components/RouterLink";
 
 export function NotFound() {
     return (
@@ -22,8 +22,8 @@ export function NotFound() {
                             perdido em algum lugar entre dois buracos negros. 🌌</p>
 
                             <p>Mas calma, você não está perdido no espaço (ainda). Dá pra voltar em
-                            segurança para a <Link to='/'>página principal</Link> ou{' '}
-                            <Link to='/history'>para o histórico</Link> — ou pode ficar por aqui e
+                            segurança para a <RouterLink href='/'>página principal</RouterLink> ou{' '}
+                            <RouterLink href='/history'>para o histórico</RouterLink> — ou pode ficar por aqui e
                             fingir que achou uma página secreta que só os exploradores mais
                             legais conseguem acessar. 🧭✨</p>
 

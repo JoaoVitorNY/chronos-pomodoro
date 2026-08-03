@@ -4,6 +4,7 @@ import { AboutPomodoro } from "../../pages/AboutPomodoro";
 import { Home } from "../../pages/Home";    
 import { useEffect } from "react";
 
+// Componente que não retorna nada, mas responsável por rolar página para o topo e utilizando hooks
 function ScrollToTop() {
     const { pathname } = useLocation();
     
