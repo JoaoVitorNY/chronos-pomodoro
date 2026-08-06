@@ -69,6 +69,7 @@ export function History() {
 	}, [confirmClearHistory, dispatch])
 
 	useEffect(() => {
+		document.title = "Histórico - Chronos Pomodoro"
 		return () => {
 			showMessage.dismiss()
 		}
@@ -78,7 +79,7 @@ export function History() {
         <MainTemplate>
           	<Container>
 				<Heading>
-					<span>History</span>
+					<span>Histórico</span>
 					{hasTasks && (
 					<span className={styles.buttonContainer}>
 						<DefaultButton 
