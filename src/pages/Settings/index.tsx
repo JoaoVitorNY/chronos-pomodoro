@@ -6,6 +6,7 @@ import { Heading } from "../../components/Heading";
 import { MainTemplate } from "../../templates/MainTemplate";
 import { useRef } from "react";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
+import { showMessage } from "../../adapters/showMessage";
 
 export function Settings() {
     const { state } = useTaskContext()
@@ -17,11 +18,36 @@ export function Settings() {
 
     function handleSaveSettings(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault()
+        showMessage.dismiss()
 
-        const workTime = workTimeInput.current?.value
-        const shortBreakTime = shortBreakTimeInput.current?.value
-        const longBreakTime = longBreakTimeInput.current?.value
+        const formErrors = []
 
+        const workTime = Number(workTimeInput.current?.value)
+        const shortBreakTime = Number(shortBreakTimeInput.current?.value)
+        const longBreakTime = Number(longBreakTimeInput.current?.value)
+
+        if (isNaN(workTime) || isNaN(shortBreakTime) || isNaN(longBreakTime)) {
+            formErrors.push('Digite um número válido para os campos!')
+        }
+
+        if (workTime < 1 || workTime > 99) {
+            formErrors.push('Digite um valor entre 1 e 99 para o tempo de foco.')
+        }
+
+        if (shortBreakTime < 1 || shortBreakTime > 30) {
+            formErrors.push('Digite um valor entre 1 e 30 para o tempo de descanso curto.')
+        }
+
+        if (longBreakTime < 1 || longBreakTime > 60) {
+            formErrors.push('Digite um valor entre 1 e 60 para o tempo de descanso longo.')
+        }
+
+        if (formErrors.length > 0) {
+            formErrors.forEach(error => {
+                showMessage.error(error)
+            })
+            return
+        }
         console.log('Salvar configurações', { workTime, shortBreakTime, longBreakTime })
     }
 
@@ -45,6 +71,7 @@ export function Settings() {
                             labelText='Foco' 
                             ref={workTimeInput}
                             defaultValue={state.config.workTime}
+                            type='number'
                         />
                     </div>
                     <div className='formRow'>
@@ -53,6 +80,7 @@ export function Settings() {
                             labelText='Descanso Curto' 
                             ref={shortBreakTimeInput}
                             defaultValue={state.config.shortBreakTime}
+                            type='number'
                         />
                     </div>
                     <div className='formRow'>
@@ -61,6 +89,7 @@ export function Settings() {
                             labelText='Descanso Longo' 
                             ref={longBreakTimeInput}
                             defaultValue={state.config.longBreakTime}
+                            type='number'
                         />
                     </div>
                     <div className='formRow'>
