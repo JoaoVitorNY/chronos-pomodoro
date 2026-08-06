@@ -9,10 +9,12 @@ import { useTaskContext } from "../../contexts/TaskContext/useTaskContext"
 import { formatDate } from "../../utils/formatDate"
 import { getTaskStatus } from "../../utils/getTaskStatus"
 import { sortTasks, type SortTasksOptions } from "../../utils/sortTasks"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { TaskActionTypes } from "../../contexts/TaskContext/taskActions"
 
 export function History() {
-	const { state } = useTaskContext()
+	const { state, dispatch } = useTaskContext()
+	const hasTasks = state.tasks.length > 0
 	const [sortTasksOptions, setSortTasksOptions] = useState<SortTasksOptions>(() => {
 		return {
 			tasks: sortTasks({ tasks: state.tasks}),
@@ -35,22 +37,46 @@ export function History() {
 		})
 	}
 
+	function handleResetHistory() {
+		if(!confirm('Tem certeza que deseja apagar todo o histórico?')) return
+
+		dispatch({ type: TaskActionTypes.RESET_STATE })
+	}
+     
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setSortTasksOptions(prevState => ({
+			...prevState,
+			tasks: sortTasks({ 
+				tasks: state.tasks,
+				direction: prevState.direction,
+				field: prevState.field
+			})
+		}))
+	}, [state.tasks])
+
+
 	return (
         <MainTemplate>
           	<Container>
 				<Heading>
 					<span>History</span>
+					{hasTasks && (
 					<span className={styles.buttonContainer}>
 						<DefaultButton 
 							icon={<TrashIcon />} 
 							color='red'
 							aria-label='Apagar todo o histórico'
-							title='Apagar histórico'/>	
+							title='Apagar histórico'
+							onClick={handleResetHistory}
+						/>	
 					</span>
+					)}
 				</Heading>
           	</Container>
 
 			<Container>
+				{hasTasks && (
             	<div className={styles.responsiveTable}>
 					<table>
 						<thead>
@@ -96,6 +122,13 @@ export function History() {
 						</tbody>
 					</table>
 				</div>
+				)}
+
+				{!hasTasks && (
+					<p style={{textAlign: 'center', fontWeight: 'bold', fontSize: '2rem'}}>
+						Ainda não há tarefas registradas.
+					</p>
+				)}
           	</Container>
         </MainTemplate>
 	)
